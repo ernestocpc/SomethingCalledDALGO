@@ -66,8 +66,12 @@ def LBS_usingLIS_LDS(nums):
     sublist= [1] * len(nums)
     for i in range(len(nums)):
         sublist[i] = inc_array[i] + dec_array[i] -1 
+    print (nums, nums[::-1])
+    print(inc_array,dec_array)
     return max(sublist)
 
+print('here')
+print(LBS_usingLIS_LDS([2,-1,4,3,5,-1,3,2])) #2,3,5,3,2 = 5 
 
 def LBS_usingLIS(nums):
     """

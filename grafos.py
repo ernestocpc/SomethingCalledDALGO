@@ -16,14 +16,12 @@ def bfs(graph, node):
     visited =[]
     # queue = []
     queue = deque()
-
+    print(list(graph)[0])
     visited.append(node)
     queue.append(node)
 
     while queue:
         s = queue.popleft()
-        print(s, end = " ")
-
         for n in graph[s]:
             if n not in visited:
                 visited.append(n)
@@ -60,6 +58,24 @@ def BellmanFord(graph, V, E, src):
                         weight < dis[y]:
             print("Graph contains negative weight cycle")
 
+def searchBipartite(graph):
+    queue = deque()
+    colores = ['white'] * len(graph)
+    queue.append(list(graph)[0]) #Primer elemento
+    colores[0] = 'red'
+    for i in range(0,len(graph)):
+        if colores[i] == 'white':
+            colores[i] ='red'
+        queue.append(list(graph)[i])
+        while queue:
+            nodo = queue.popleft()
+
+
+            
+                
+
+
 def main():
+    searchBipartite(graph)
     bfs(graph, 'A')
 main()
