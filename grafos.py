@@ -1,4 +1,5 @@
 from collections import deque
+from typing import List
 
 
 graph = {
@@ -14,9 +15,8 @@ graph = {
 }
 def bfs(graph, node):
     visited =[]
-    # queue = []
     queue = deque()
-    print(list(graph)[0])
+
     visited.append(node)
     queue.append(node)
 
@@ -26,56 +26,56 @@ def bfs(graph, node):
             if n not in visited:
                 visited.append(n)
                 queue.append(n)
+    return visited
 
-def BellmanFord(graph, V, E, src):
- 
-    # Initialize distance of all vertices as infinite.
-    dis = [maxsize] * V
- 
-    # initialize distance of source as 0
-    dis[src] = 0
- 
-    # Relax all edges |V| - 1 times. A simple
-    # shortest path from src to any other
-    # vertex can have at-most |V| - 1 edges
-    for i in range(V - 1):
-        for j in range(E):
-            if dis[graph[j][0]] + \
-                   graph[j][2] < dis[graph[j][1]]:
-                dis[graph[j][1]] = dis[graph[j][0]] + \
-                                       graph[j][2]
- 
-    # check for negative-weight cycles.
-    # The above step guarantees shortest
-    # distances if graph doesn't contain
-    # negative weight cycle. If we get a
-    # shorter path, then there is a cycle.
-    for i in range(E):
-        x = graph[i][0]
-        y = graph[i][1]
-        weight = graph[i][2]
-        if dis[x] != maxsize and dis[x] + \
-                        weight < dis[y]:
-            print("Graph contains negative weight cycle")
+def floyd_Warshall(graph):
+    """
+    Graph es la matriz de adyacencia
+    """
+    V = len(graph)
+    # dist = [[0 for columnas in range(V)] for filas in range(V)]
+    dist = list(map(lambda i: list(map(lambda j: j, i)), graph))
+    for k in range(V):
+        for i in range(V):
+            for j in range(V):
+                dist[i][j] = min (dist[i][j], dist[i][k] + dist[k][j])
+    return dist
 
 def searchBipartite(graph):
+
     queue = deque()
     colores = ['white'] * len(graph)
-    queue.append(list(graph)[0]) #Primer elemento
+    set_R = [] #Rojo
+    set_A= [] #Azul
+
+    
     colores[0] = 'red'
     for i in range(0,len(graph)):
-        if colores[i] == 'white':
-            colores[i] ='red'
-        queue.append(list(graph)[i])
-        while queue:
-            nodo = queue.popleft()
+        #Revisar si el nodo es blanco o ya fue visitado (a.k.a tiene color)
+        if graph[i] not in set_R and graph[i] not in set_A:
+            set_R.append(list(graph[i])) #Si no ah sido visitado se pone en Rojo 
+            queue.append(list(graph[i]))
 
+            while queue:
+                nodoOrigen = queue.popleft()
 
-            
-                
+                for n in range(0,len(graph[nodoOrigen])): #Recorrer vertices vecinos
+                    nodoVecino = graph[nodoOrigen][n]
+
+                    if nodoVecino not in set_R and nodoVecino not in set_A: #El vertice todavia no tiene color
+
+                        if nodoOrigen in set_R: #El origen es rojo, los vecinos deben ser azules
+                            set_A.append(nodoVecino)
+
+                        elif nodoOrigen in set_A: #El origen es azul y el vecino debe ser rojo
+                            set_R.append(nodoVecino)
+
+                    elif (nodoVecino and nodoOrigen) in set_R or (nodoVecino and nodoOrigen) in set_A: #Como tiene color, revisar que no sea el mismo 
+                        return False
+    return True          
 
 
 def main():
     searchBipartite(graph)
     bfs(graph, 'A')
-main()
+# main()
