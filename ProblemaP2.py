@@ -1,6 +1,7 @@
-# Maria Alejandra Estrada
-# Santiago Martinez
-# Ernesto Perez -202112530
+# María Alejandra Estrada G 202021060 
+# Santiago Martínez Novoa 202112020 
+# Ernesto Carlos Pérez Covo 202112530 
+import sys
 
 # palabras debe ser la lista [] con todas las palabras ordenadas por pagina 
 def pandora(palabras) -> str :
@@ -28,7 +29,45 @@ E2 = ['xx', 'xp', 'pj', 'jjj', 'jjw'] # xpjw
 E3 = ['ab', 'ac', 'cb'] # ERROR
 E4 = ['ab', 'ah', 'an', 'mn', 'mk'] # abmhnk
 E5 = ['wrt','wrf','er','ett','rftt'] #wertf
-pandora(E1)
-pandora(E2)
-pandora(E3)
-pandora(E4)
+# pandora(E1)
+# pandora(E2)
+# pandora(E3)
+# pandora(E4)
+
+
+#  Main - Funciona para leer y formatear datos
+numero_casos = int(sys.stdin.readline())
+for __ in range(numero_casos):
+    try:
+        case_list = list(map(str, sys.stdin.readline().split()))
+        diccionario = {}
+        alfabeto = []
+        numeroPag = int(case_list[0])
+        for i in range(int(case_list[0])):
+            pagina = list(map(str, sys.stdin.readline().split()))
+
+            diccionario[int(pagina[0])] = pagina[1:]
+            numeroPag -=1
+
+            if numeroPag == 0:
+                for p in range(len(diccionario)):
+                    alfabeto.extend(diccionario[p])
+                print(pandora(alfabeto))
+                alfabeto = []
+    except:
+        print('Error en los parametros iniciales')
+        alfabeto = []
+    
+"""
+4
+3 3
+2 m m mmhj
+0 h hjh hjmh
+1 hm j jjm
+1 5
+0 xx xp pj jjj jjw
+1 3
+0 ab ac cb
+1 5
+0 ab ah an mn mk
+"""
