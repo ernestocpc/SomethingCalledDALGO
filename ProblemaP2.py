@@ -4,6 +4,13 @@
 import sys
 
 # palabras debe ser la lista [] con todas las palabras ordenadas por pagina 
+def dfs(listaAdj, c, visitado, stack):
+    visitado[c] = True
+    for v in listaAdj[c]:
+        if visitado[v] == False:
+            dfs(listaAdj, v, visitado, stack)
+    stack.insert(0,c)
+
 def pandora(palabras) -> str :
     listaAdj = {c:[] for w in palabras for c in w} #Todas las letras en orden de aparicion 
     
@@ -20,43 +27,40 @@ def pandora(palabras) -> str :
     Falta pensar excepciones
     Siguiente paso: Hacer el dfs 
     """
-    print(listaAdj)
+    
+    visitado = {c:False for c in listaAdj}
+    stack = []
+    for c in listaAdj:
+        if visitado[c] == False:
+            dfs(listaAdj, c, visitado, stack)
 
-    pass
+    return "".join(stack)   
 
-E1 = ['h', 'hjh', 'hjmh', 'hm', 'j', 'jjm', 'm', 'm','mmhj'] # hjm
-E2 = ['xx', 'xp', 'pj', 'jjj', 'jjw'] # xpjw
-E3 = ['ab', 'ac', 'cb'] # ERROR
-E4 = ['ab', 'ah', 'an', 'mn', 'mk'] # abmhnk
-E5 = ['wrt','wrf','er','ett','rftt'] #wertf
-# pandora(E1)
-# pandora(E2)
-# pandora(E3)
-# pandora(E4)
+
 
 
 #  Main - Funciona para leer y formatear datos
 numero_casos = int(sys.stdin.readline())
 for __ in range(numero_casos):
-    try:
-        case_list = list(map(str, sys.stdin.readline().split()))
-        diccionario = {}
-        alfabeto = []
-        numeroPag = int(case_list[0])
-        for i in range(int(case_list[0])):
-            pagina = list(map(str, sys.stdin.readline().split()))
+    
+    case_list = list(map(str, sys.stdin.readline().split()))
+    diccionario = {}
+    alfabeto = []
+    numeroPag = int(case_list[0])
+    for i in range(int(case_list[0])):
+        pagina = list(map(str, sys.stdin.readline().split()))
 
-            diccionario[int(pagina[0])] = pagina[1:]
-            numeroPag -=1
+        diccionario[int(pagina[0])] = pagina[1:]
+        numeroPag -=1
 
-            if numeroPag == 0:
-                for p in range(len(diccionario)):
-                    alfabeto.extend(diccionario[p])
-                print(pandora(alfabeto))
-                alfabeto = []
-    except:
-        print('Error en los parametros iniciales')
-        alfabeto = []
+        if numeroPag == 0:
+            for p in range(len(diccionario)):
+                alfabeto.extend(diccionario[p])
+            print(alfabeto)
+            print(pandora(alfabeto))
+            alfabeto = []
+    
+    
     
 """
 4
@@ -71,3 +75,12 @@ for __ in range(numero_casos):
 1 5
 0 ab ah an mn mk
 """
+E1 = ['h', 'hjh', 'hjmh', 'hm', 'j', 'jjm', 'm', 'm','mmhj'] # hjm
+E2 = ['xx', 'xp', 'pj', 'jjj', 'jjw'] # xpjw
+E3 = ['ab', 'ac', 'cb'] # ERROR
+E4 = ['ab', 'ah', 'an', 'mn', 'mk'] # abmhnk
+E5 = ['wrt','wrf','er','ett','rftt'] #wertf
+# pandora(E1)
+# pandora(E2)
+# pandora(E3)
+# pandora(E4)
