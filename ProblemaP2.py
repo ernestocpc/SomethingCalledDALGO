@@ -42,24 +42,25 @@ def pandora(palabras) -> str :
 #  Main - Funciona para leer y formatear datos
 numero_casos = int(sys.stdin.readline())
 for __ in range(numero_casos):
-    
-    case_list = list(map(str, sys.stdin.readline().split()))
-    diccionario = {}
-    alfabeto = []
-    numeroPag = int(case_list[0])
-    for i in range(int(case_list[0])):
-        pagina = list(map(str, sys.stdin.readline().split()))
+    try:
+        case_list = list(map(str, sys.stdin.readline().split()))
+        diccionario = {}
+        alfabeto = []
+        numeroPag = int(case_list[0])
+        for i in range(int(case_list[0])):
+            pagina = list(map(str, sys.stdin.readline().split()))
 
-        diccionario[int(pagina[0])] = pagina[1:]
-        numeroPag -=1
+            diccionario[int(pagina[0])] = pagina[1:]
+            numeroPag -=1
 
-        if numeroPag == 0:
-            for p in range(len(diccionario)):
-                alfabeto.extend(diccionario[p])
-            print(alfabeto)
-            print(pandora(alfabeto))
-            alfabeto = []
-    
+            if numeroPag == 0:
+                for p in range(len(diccionario)):
+                    alfabeto.extend(diccionario[p])
+                print(alfabeto)
+                print(pandora(alfabeto))
+                alfabeto = []
+    except:
+        print("formato de datos incorrecto")
     
     
 """
