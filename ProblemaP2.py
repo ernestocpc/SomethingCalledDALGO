@@ -56,7 +56,6 @@ for __ in range(numero_casos):
             if numeroPag == 0:
                 for p in range(len(diccionario)):
                     alfabeto.extend(diccionario[p])
-                print(alfabeto)
                 print(pandora(alfabeto))
                 alfabeto = []
     except:
