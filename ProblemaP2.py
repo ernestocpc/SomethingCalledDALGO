@@ -42,38 +42,36 @@ def pandora(palabras) -> str :
 #  Main - Funciona para leer y formatear datos
 numero_casos = int(sys.stdin.readline())
 for __ in range(numero_casos):
-    try:
-        case_list = list(map(str, sys.stdin.readline().split()))
-        diccionario = {}
-        alfabeto = []
-        numeroPag = int(case_list[0])
-        for i in range(int(case_list[0])):
-            pagina = list(map(str, sys.stdin.readline().split()))
+    case_list = list(map(str, sys.stdin.readline().split()))
+    diccionario = {}
+    alfabeto = []
+    numeroPag = int(case_list[0])
+    for i in range(int(case_list[0])):
+        pagina = list(map(str, sys.stdin.readline().split()))
 
-            diccionario[int(pagina[0])] = pagina[1:]
-            numeroPag -=1
+        diccionario[int(pagina[0])] = pagina[1:]
+        numeroPag -=1
 
-            if numeroPag == 0:
-                for p in range(len(diccionario)):
-                    alfabeto.extend(diccionario[p])
-                print(pandora(alfabeto))
-                alfabeto = []
-    except:
-        print("formato de datos incorrecto")
+        if numeroPag == 0:
+            for p in range(len(diccionario)):
+                alfabeto.extend(diccionario[p])
+            print(pandora(alfabeto))
+            alfabeto = []
+
     
     
 """
 4
 3 3
-2 m m mmhj
+2 m mh mmhj
 0 h hjh hjmh
 1 hm j jjm
 1 5
 0 xx xp pj jjj jjw
-1 3
-0 ab ac cb
-1 5
-0 ab ah an mn mk
+1 4
+0 ab ac cc cb
+1 8
+0 ab ah an mb mm mh nan nak
 """
 E1 = ['h', 'hjh', 'hjmh', 'hm', 'j', 'jjm', 'm', 'm','mmhj'] # hjm
 E2 = ['xx', 'xp', 'pj', 'jjj', 'jjw'] # xpjw
